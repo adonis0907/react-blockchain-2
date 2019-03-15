@@ -1,0 +1,20 @@
+1. npm init -y
+
+2. npm i jest@23.6.0 --save-dev
+Print out json contents ==> $ cat package.json
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
