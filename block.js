@@ -29,13 +29,13 @@ class Block {
   }
 }
 
+module.exports = Block;
+
 // can allocate argument any position I want
 // const block1 = new Block({
+//   hash: "this##",
 //   timestamp: "01/01/01",
 //   lastHash: "last#",
-//   hash: "this##",
 //   data: "abcd"
 // });
 // console.log(block1);
-
-module.exports = Block;

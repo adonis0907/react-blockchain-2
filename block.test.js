@@ -50,8 +50,8 @@ describe("Block", () => {
     it("sets a `timestamp`", () => {
       expect(minedBlock.timestamp).not.toEqual(undefined);
     });
-    console.log(minedBlock);
-    console.log(lastBlock);
+    //console.log(minedBlock);
+    //console.log(lastBlock);
 
     it("create a SHA-256 `hash` based on the proper inputs", () => {
       expect(minedBlock.hash).toEqual(
