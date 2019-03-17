@@ -1,5 +1,5 @@
-// use the "crypto" module
 const crypto = require("crypto");
+//const hexToBinary = require("hex-to-binary");
 
 //...xxx: spread operator. can combine all the arguments into a xxx array
 const cryptoHash = (...inputs) => {
@@ -10,6 +10,7 @@ const cryptoHash = (...inputs) => {
   hash.update(inputs.sort().join(" "));
   // make hash as hex format
   return hash.digest("hex");
+  //return hexToBinary(hash.digest("hex"));
 };
 
 module.exports = cryptoHash;

@@ -41,19 +41,29 @@ class Blockchain {
     for (let i = 1; i < chain.length; i++) {
       // Destructuring assignment
       // e.g.: { timestamp } = chain[1]; ==> access `chain[1].lastHash` just simply as `lastHash`
-      const { timestamp, lastHash, hash, data } = chain[i];
+      const { timestamp, lastHash, hash, nonce, difficulty, data } = chain[i];
       const actualLastHash = chain[i - 1].hash;
+      const lastDifficulty = chain[i - 1].difficulty;
 
       if (lastHash !== actualLastHash) {
         return false;
       }
 
-      const validatedHash = cryptoHash(timestamp, lastHash, data);
+      const validatedHash = cryptoHash(
+        timestamp,
+        lastHash,
+        data,
+        nonce,
+        difficulty
+      );
       if (hash !== validatedHash) {
         // Different value between `hash` and `validatedHash` if changed `data` like checked in test.
         //console.log(hash + "  |  " + validatedHash);
         return false;
       }
+      // prevent jump difficulty attack (+/-)
+      // abs: absolute value 絶対値（マイナスじゃない）difficultyをあげられて、ブロックの生成を遅くされる攻撃を防ぐ
+      if (Math.abs(lastDifficulty - difficulty) > 1) return false;
     }
 
     return true;
