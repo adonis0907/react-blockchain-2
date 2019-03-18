@@ -7,16 +7,20 @@ Print out json contents ==> $ cat package.json
     npm i hex-to-binary --save
 
 
-4.
+4. npm i express@4.16.3 --save
+Localhost API
 
-5.
+5. npm i nodemon@1.18.4 --save-dev
+Automatically re-run entire APP after updates and save the file
 
-6.
+6. npm i body-parser@1.18.3 --save
+To receive Json in Express API. This middleware will enhanncements to the Express to parse some bodies.
 
-7.
+7. npm i redis@2.8.0 --save  OR  npm i pubnub@4.21.6 —save
+  Broadcast added block
+8. npm i cross-env@5.2.0 --save-dev
 
-8.
-
-9.
+9. npm i request@2.88.0 --save
+send an HTTP get request
 
 10.
