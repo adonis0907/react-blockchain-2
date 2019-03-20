@@ -9,7 +9,7 @@ const cryptoHash = (...inputs) => {
   // eg.["A" , "B", "C"] ==> >> "A B C"
   hash.update(
     inputs
-      // to adopt update function (transaction.js), to make each hash by map. (JSは変数をコピーか、アップデートした場合、付属する既に作られたHashは同等となってしまう)
+      // to avoid `hash` duplication, to adopt update function (transaction.js), to make each hash by map. (JSは変数をコピーか、アップデートした場合、付属する既に作られたHashは同等となってしまう)
       .map(input => JSON.stringify(input))
       .sort()
       .join(" ")
