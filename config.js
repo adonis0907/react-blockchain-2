@@ -11,6 +11,8 @@ const GENESIS_DATA = {
   data: []
 };
 
+const STARTING_BALANCE = 1000;
+
 // Ommit the VALLUE due to KEY and VALUE is same
 // == { GENESIS_DATA: GENESIS_DATA }
-module.exports = { GENESIS_DATA, MINE_RATE };
+module.exports = { GENESIS_DATA, MINE_RATE, STARTING_BALANCE };

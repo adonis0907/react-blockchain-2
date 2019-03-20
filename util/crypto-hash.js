@@ -7,10 +7,15 @@ const cryptoHash = (...inputs) => {
 
   // join: make a "space" as separator for each listed element to make a combined string.
   // eg.["A" , "B", "C"] ==> >> "A B C"
-  hash.update(inputs.sort().join(" "));
+  hash.update(
+    inputs
+      // to adopt update function (transaction.js), to make each hash by map. (JSは変数をコピーか、アップデートした場合、付属する既に作られたHashは同等となってしまう)
+      .map(input => JSON.stringify(input))
+      .sort()
+      .join(" ")
+  );
   // make hash as hex format
   return hash.digest("hex");
-  //return hexToBinary(hash.digest("hex"));
 };
 
 module.exports = cryptoHash;

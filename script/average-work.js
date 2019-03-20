@@ -1,4 +1,4 @@
-const Blockchain = require("./blockchain");
+const Blockchain = require("../blockchain");
 // blockchain [0]
 const blockchain = new Blockchain();
 

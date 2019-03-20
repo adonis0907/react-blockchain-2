@@ -1,8 +1,8 @@
 const hexToBinary = require("hex-to-binary");
 const Block = require("./block");
 // {} because GENESIS_DATA was exported in an object.
-const { GENESIS_DATA, MINE_RATE } = require("./config");
-const cryptoHash = require("./crypto-hash");
+const { GENESIS_DATA, MINE_RATE } = require("../config");
+const { cryptoHash } = require("../util/");
 
 describe("Block", () => {
   const timestamp = 2000;
@@ -94,7 +94,7 @@ describe("Block", () => {
   });
 
   describe("adjustDifficulty()", () => {
-    it("raises the difficulty for a quikly mined block", () => {
+    it("raises the difficulty for a quickly mined block", () => {
       expect(
         Block.adjustDifficulty({
           originalBlock: block,
