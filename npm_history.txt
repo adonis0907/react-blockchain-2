@@ -29,3 +29,5 @@ To generate public/private key pair
 
 11. npm i uuid@3.3.2 --save
 To generate unique ID
+
+12. npm i react@16.6.0 ract0dom@16.6.0 --save

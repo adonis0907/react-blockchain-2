@@ -2,6 +2,7 @@ const express = require("express");
 // bodyParserミドルウェアはHTTPのリクエストボディをparseする為の物
 const bodyParser = require("body-parser");
 const request = require("request");
+const path = require("path");
 const Blockchain = require("./blockchain");
 const PubSub = require("./app/pubsub");
 const TransactionPool = require("./wallet/transaction-pool");
@@ -26,6 +27,7 @@ const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 //setTimeout(() => pubsub.broadcastChain(), 1000);
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "client/dist")));
 
 // `.get` to return blocks from back end.
 // Arguments 1: end point on the server. 2: call back
@@ -92,6 +94,11 @@ app.get("/api/wallet-info", (req, res) => {
     address,
     balance: Wallet.calculateBalance({ chain: blockchain.chain, address })
   });
+});
+
+// *: Any endpoint
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist/index.html"));
 });
 
 const syncWithRootState = () => {
