@@ -31,3 +31,5 @@ To generate public/private key pair
 To generate unique ID
 
 12. npm i react@16.6.0 ract0dom@16.6.0 --save
+
+13. npm i parcel-bundler@1.10.3 --save
