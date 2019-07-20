@@ -82,6 +82,12 @@ Need to [install redis](https://medium.com/@petehouston/install-and-config-redis
 
 ## Usage
 
+### Run React
+
+`$ npm run dev`
+
+then open http://localhost:3000/ in your browser
+
 ### Run test
 
 `$ npm run test`
