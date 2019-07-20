@@ -1,57 +1,57 @@
-const Transaction = require("./transaction");
-const Wallet = require("./index");
-const { verifySignature } = require("../util");
-const { REWARD_INPUT, MINING_REWARD } = require("../config");
+const Transaction = require('./transaction');
+const Wallet = require('./index');
+const { verifySignature } = require('../util');
+const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
-describe("Transaction", () => {
+describe('Transaction', () => {
   let transaction, senderWallet, recipient, amount;
 
   beforeEach(() => {
     senderWallet = new Wallet();
-    recipient = "recipient-public-key";
+    recipient = 'recipient-public-key';
     amount = 50;
 
     transaction = new Transaction({ senderWallet, recipient, amount });
   });
 
-  it("has an `id`", () => {
-    expect(transaction).toHaveProperty("id");
+  it('has an `id`', () => {
+    expect(transaction).toHaveProperty('id');
   });
 
-  describe("outputMap", () => {
-    it("has an `outputMap`", () => {
-      expect(transaction).toHaveProperty("outputMap");
+  describe('outputMap', () => {
+    it('has an `outputMap`', () => {
+      expect(transaction).toHaveProperty('outputMap');
     });
 
-    it("outputs the amount to the receipient", () => {
+    it('outputs the amount to the receipient', () => {
       expect(transaction.outputMap[recipient]).toEqual(amount);
     });
 
-    it("outputs the remaining balance for the `senderWallet`", () => {
+    it('outputs the remaining balance for the `senderWallet`', () => {
       expect(transaction.outputMap[senderWallet.publicKey]).toEqual(
         senderWallet.balance - amount
       );
     });
   });
 
-  describe("input", () => {
-    it("has an `input`", () => {
-      expect(transaction).toHaveProperty("input");
+  describe('input', () => {
+    it('has an `input`', () => {
+      expect(transaction).toHaveProperty('input');
     });
 
-    it("has a `timestamp` in the input", () => {
-      expect(transaction.input).toHaveProperty("timestamp");
+    it('has a `timestamp` in the input', () => {
+      expect(transaction.input).toHaveProperty('timestamp');
     });
 
-    it("sets the `amount` to the `senderWallet` balance", () => {
+    it('sets the `amount` to the `senderWallet` balance', () => {
       expect(transaction.input.amount).toEqual(senderWallet.balance);
     });
 
-    it("sets the `address` to the `senderWallet` publicKey", () => {
+    it('sets the `address` to the `senderWallet` publicKey', () => {
       expect(transaction.input.address).toEqual(senderWallet.publicKey);
     });
 
-    it("signs the input", () => {
+    it('signs the input', () => {
       expect(
         verifySignature({
           publicKey: senderWallet.publicKey,
@@ -62,7 +62,7 @@ describe("Transaction", () => {
     });
   });
 
-  describe("validTransaction()", () => {
+  describe('validTransaction()', () => {
     let errorMock;
 
     beforeEach(() => {
@@ -71,15 +71,15 @@ describe("Transaction", () => {
       global.console.error = errorMock;
     });
 
-    describe("when the transaction is valid", () => {
-      it("returns true", () => {
+    describe('when the transaction is valid', () => {
+      it('returns true', () => {
         expect(Transaction.validTransaction(transaction)).toBe(true);
       });
     });
 
-    describe("when the transaction is invalid", () => {
-      describe("and a transaction outputMap value is invalid", () => {
-        it("returns false and logs an error", () => {
+    describe('when the transaction is invalid', () => {
+      describe('and a transaction outputMap value is invalid', () => {
+        it('returns false and logs an error', () => {
           transaction.outputMap[senderWallet.publicKey] = 999999;
 
           expect(Transaction.validTransaction(transaction)).toBe(false);
@@ -87,9 +87,9 @@ describe("Transaction", () => {
         });
       });
 
-      describe("and the transaction input signature is invalid", () => {
-        it("returns false and logs an error", () => {
-          transaction.input.signature = new Wallet().sign("data");
+      describe('and the transaction input signature is invalid', () => {
+        it('returns false and logs an error', () => {
+          transaction.input.signature = new Wallet().sign('data');
 
           expect(Transaction.validTransaction(transaction)).toBe(false);
           expect(errorMock).toHaveBeenCalled();
@@ -98,26 +98,26 @@ describe("Transaction", () => {
     });
   });
 
-  describe("update()", () => {
+  describe('update()', () => {
     let originalSignature, originalSenderOutput, nextRecipient, nextAmount;
 
-    describe("and the amount is invalid", () => {
-      it("throws an error", () => {
+    describe('and the amount is invalid', () => {
+      it('throws an error', () => {
         expect(() => {
           transaction.update({
             senderWallet,
-            recipient: "foo",
+            recipient: 'foo',
             amount: 999999
           });
-        }).toThrow("Amount exceeds balance");
+        }).toThrow('Amount exceeds balance');
       });
     });
 
-    describe("and the amount is valid", () => {
+    describe('and the amount is valid', () => {
       beforeEach(() => {
-        orininalSignature = transaction.input.signature;
+        originalSignature = transaction.input.signature;
         originalSenderOutput = transaction.outputMap[senderWallet.publicKey];
-        nextRecipient = "next-recipient";
+        nextRecipient = 'next-recipient';
         nextAmount = 50;
 
         transaction.update({
@@ -127,17 +127,17 @@ describe("Transaction", () => {
         });
       });
 
-      it("outputs the amount to the next recipient", () => {
+      it('outputs the amount to the next recipient', () => {
         expect(transaction.outputMap[nextRecipient]).toEqual(nextAmount);
       });
 
-      it("subtracts the amount from the original sender output amount", () => {
+      it('subtracts the amount from the original sender output amount', () => {
         expect(transaction.outputMap[senderWallet.publicKey]).toEqual(
           originalSenderOutput - nextAmount
         );
       });
 
-      it("maintans a total output that matches the input amount", () => {
+      it('maintans a total output that matches the input amount', () => {
         console.log(transaction.outputMap);
         /*
               { 'recipient-public-key': 50,
@@ -155,11 +155,11 @@ describe("Transaction", () => {
         // >>  1000
       });
 
-      it("re-signs the transaction", () => {
+      it('re-signs the transaction', () => {
         expect(transaction.input.signature).not.toEqual(originalSignature);
       });
 
-      describe("and another update for the same recipient", () => {
+      describe('and another update for the same recipient', () => {
         let addedAmount;
 
         beforeEach(() => {
@@ -171,13 +171,13 @@ describe("Transaction", () => {
           });
         });
 
-        it("adds to the recipient amount", () => {
+        it('adds to the recipient amount', () => {
           expect(transaction.outputMap[nextRecipient]).toEqual(
             nextAmount + addedAmount
           );
         });
 
-        it("subtracts the amount from the original sender output amount", () => {
+        it('subtracts the amount from the original sender output amount', () => {
           expect(transaction.outputMap[senderWallet.publicKey]).toEqual(
             originalSenderOutput - nextAmount - addedAmount
           );
@@ -185,7 +185,7 @@ describe("Transaction", () => {
       });
     });
   });
-  describe("rewardTransaction()", () => {
+  describe('rewardTransaction()', () => {
     let rewardTransaction, minerWallet;
 
     beforeEach(() => {
@@ -193,11 +193,11 @@ describe("Transaction", () => {
       rewardTransaction = Transaction.rewardTransaction({ minerWallet });
     });
 
-    it("create a transaction with the reward input", () => {
+    it('create a transaction with the reward input', () => {
       expect(rewardTransaction.input).toEqual(REWARD_INPUT);
     });
 
-    it("create ones transaction for the miner with the `MINING_REWARD`", () => {
+    it('create ones transaction for the miner with the `MINING_REWARD`', () => {
       expect(rewardTransaction.outputMap[minerWallet.publicKey]).toEqual(
         MINING_REWARD
       );

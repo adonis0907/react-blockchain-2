@@ -1,9 +1,9 @@
-const TransactionPool = require("./transaction-pool");
-const Transaction = require("./transaction");
-const Wallet = require("./index");
-const Blockchain = require("../blockchain");
+const TransactionPool = require('./transaction-pool');
+const Transaction = require('./transaction');
+const Wallet = require('./index');
+const Blockchain = require('../blockchain');
 
-describe("TransactionPool", () => {
+describe('TransactionPool', () => {
   let transactionPool, transaction, senderWallet;
 
   beforeEach(() => {
@@ -11,13 +11,13 @@ describe("TransactionPool", () => {
     senderWallet = new Wallet();
     transaction = new Transaction({
       senderWallet,
-      recipient: "fake-recipient",
+      recipient: 'fake-recipient',
       amount: 50
     });
   });
 
-  describe("setTransaction()", () => {
-    it("adds a transaction", () => {
+  describe('setTransaction()', () => {
+    it('adds a transaction', () => {
       transactionPool.setTransaction(transaction);
 
       expect(transactionPool.transactionMap[transaction.id]).toBe(transaction);
@@ -25,8 +25,8 @@ describe("TransactionPool", () => {
     });
   });
 
-  describe("existingTransaction()", () => {
-    it("returns an existing transaction given an input address", () => {
+  describe('existingTransaction()', () => {
+    it('returns an existing transaction given an input address', () => {
       transactionPool.setTransaction(transaction);
 
       expect(
@@ -37,8 +37,8 @@ describe("TransactionPool", () => {
     });
   });
 
-  describe("validTransactions()", () => {
-    let validTransactions;
+  describe('validTransactions()', () => {
+    let validTransactions, errorMock;
 
     beforeEach(() => {
       validTransactions = [];
@@ -48,15 +48,14 @@ describe("TransactionPool", () => {
       for (let i = 0; i < 10; i++) {
         transaction = new Transaction({
           senderWallet,
-          recipient: "any-recipient",
+          recipient: 'any-recipient',
           amount: 30
         });
 
         if (i % 3 === 0) {
-          transaction.input.amount = 99999;
-        } else if (1 % 3 === 1) {
-          // not the matching sugnature for the transaction
-          transaction.input.signature = new Wallet().sign("foo");
+          transaction.input.amount = 999999;
+        } else if (i % 3 === 1) {
+          transaction.input.signature = new Wallet().sign('foo');
         } else {
           validTransactions.push(transaction);
         }
@@ -65,32 +64,32 @@ describe("TransactionPool", () => {
       }
     });
 
-    it("returns valid transaction", () => {
+    it('returns valid transaction', () => {
       expect(transactionPool.validTransactions()).toEqual(validTransactions);
     });
 
-    it("logs errors for the invalid transactions", () => {
+    it('logs errors for the invalid transactions', () => {
       transactionPool.validTransactions();
       expect(errorMock).toHaveBeenCalled();
     });
   });
 
-  describe("clear()", () => {
-    it("clears the transactions", () => {
+  describe('clear()', () => {
+    it('clears the transactions', () => {
       transactionPool.clear();
 
       expect(transactionPool.transactionMap).toEqual({});
     });
   });
 
-  describe("clearBlockchainTransactions()", () => {
-    it("clears the pool of any existing clockchain transactions", () => {
+  describe('clearBlockchainTransactions()', () => {
+    it('clears the pool of any existing clockchain transactions', () => {
       const blockchain = new Blockchain();
       const expectedTransactionMap = {};
 
       for (let i = 0; i < 6; i++) {
         const transaction = new Wallet().createTransaction({
-          recipient: "foo",
+          recipient: 'foo',
           amount: 20
         });
 

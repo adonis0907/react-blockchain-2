@@ -1,9 +1,9 @@
-const hexToBinary = require("hex-to-binary");
-const { GENESIS_DATA, MINE_RATE } = require("../config");
-const { cryptoHash } = require("../util/");
+const hexToBinary = require('hex-to-binary');
+const { GENESIS_DATA, MINE_RATE } = require('../config');
+const { cryptoHash } = require('../util/');
 
 class Block {
-  // let object {} as argument that makes readable code when use this function
+  // { } to rap args: no need to remember order of args when creating instatnce
   constructor({ timestamp, lastHash, hash, data, nonce, difficulty }) {
     this.timestamp = timestamp;
     this.lastHash = lastHash;
@@ -14,18 +14,18 @@ class Block {
   }
 
   static genesis() {
-    // can use as Block.genesis(). No need make instance
-    // this: refer to Block class == return new Block(GENESIS_DATA);
+    // static: Call as from class name such Block.genesis(). No need to make instance. No need to change any data, so no need to make instance.
+    // new this(): Same as `new Block()`
     return new this(GENESIS_DATA);
   }
 
   static mineBlock({ lastBlock, data }) {
     const lastHash = lastBlock.hash;
-    // "let" to be reassigned within evry loop of this do-while block
     let hash, timestamp;
     let { difficulty } = lastBlock;
     let nonce = 0;
 
+    // hexToBinary(hash): Use binary to find hash due to higher speed / difficulty
     do {
       nonce++;
       timestamp = Date.now();
@@ -35,7 +35,7 @@ class Block {
       });
       hash = cryptoHash(timestamp, lastHash, data, nonce, difficulty);
     } while (
-      hexToBinary(hash).substring(0, difficulty) !== "0".repeat(difficulty)
+      hexToBinary(hash).substring(0, difficulty) !== '0'.repeat(difficulty)
     );
 
     return new this({
@@ -45,7 +45,6 @@ class Block {
       nonce,
       difficulty,
       hash
-      //hash: cryptoHash(timestamp, lastHash, data, nonce, difficulty)
     });
   }
 
@@ -55,6 +54,7 @@ class Block {
     const difference = timestamp - originalBlock.timestamp;
 
     // Difficult limit as 1. Cannot become less than 0 because hash value will affect. ("x0" in the head)
+    // return 1 === return (this.difficulty = 1 )
     if (difficulty < 1) {
       return 1;
     }
@@ -66,17 +66,7 @@ class Block {
     if (difference < MINE_RATE) {
       return difficulty + 1;
     }
-    //return difficulty + 1;
   }
 }
 
 module.exports = Block;
-
-// can allocate argument any position I want
-// const block1 = new Block({
-//   hash: "this##",
-//   timestamp: "01/01/01",
-//   lastHash: "last#",
-//   data: "abcd"
-// });
-// console.log(block1);

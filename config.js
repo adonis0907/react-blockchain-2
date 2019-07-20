@@ -1,11 +1,11 @@
 const MINE_RATE = 1000;
 const INITIAL_DIFFICULTY = 3;
 
-//  Screan case syntax: All caps, widely used soffer syntax. (Global) It's grab the attention.
 const GENESIS_DATA = {
+  // timestamp: new Data(),
   timestamp: 1,
-  lastHash: "____",
-  hash: "hash-one",
+  lastHash: '____',
+  hash: 'hash-one',
   difficulty: INITIAL_DIFFICULTY,
   nonce: 0,
   data: []
@@ -14,7 +14,7 @@ const GENESIS_DATA = {
 const STARTING_BALANCE = 1000;
 
 const REWARD_INPUT = {
-  address: "*authorized-reward*"
+  address: '*authorized-reward*'
 };
 
 const MINING_REWARD = 50;

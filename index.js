@@ -1,19 +1,20 @@
-const express = require("express");
-// bodyParserミドルウェアはHTTPのリクエストボディをparseする為の物
-const bodyParser = require("body-parser");
-const request = require("request");
-const path = require("path");
-const Blockchain = require("./blockchain");
-const PubSub = require("./app/pubsub");
-const TransactionPool = require("./wallet/transaction-pool");
-const Wallet = require("./wallet");
-const TransactionMiner = require("./app/transaction-miner");
+const express = require('express');
 
-const isDevelopment = process.env.ENV === "development";
+// Middleware for parse JSON HTTP request (body)
+const bodyParser = require('body-parser');
+const request = require('request');
+const path = require('path');
+const Blockchain = require('./blockchain');
+const PubSub = require('./app/pubsub');
+const TransactionPool = require('./wallet/transaction-pool');
+const Wallet = require('./wallet');
+const TransactionMiner = require('./app/transaction-miner');
+
+const isDevelopment = process.env.ENV === 'development';
 
 const REDIS_URL = isDevelopment
-  ? "redis://127.0.0.1:6379"
-  : "redis://h:p5d1fdd9b0086f39b74adf6a2388ad4d17eccb07429ba8f98c79422e002add703@ec2-35-168-215-149.compute-1.amazonaws.com:19079";
+  ? 'redis://127.0.0.1:6379'
+  : 'redis://h:p5d1fdd9b0086f39b74adf6a2388ad4d17eccb07429ba8f98c79422e002add703@ec2-35-168-215-149.compute-1.amazonaws.com:19079';
 
 const DEFAULT_PORT = 3000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
@@ -30,23 +31,25 @@ const transactionMiner = new TransactionMiner({
   pubsub
 });
 
-//setTimeout(() => pubsub.broadcastChain(), 1000);
+// setTimeout(() => pubsub.broadcastChain(), 1000);
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "client/dist")));
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
 // `.get` to return blocks from back end.
 // Arguments 1: end point on the server. 2: call back
 // Access `/api/blocks`, then will get the response as json format to return the information of `blockchain.chain`.
-app.get("/api/blocks", (req, res) => {
+// (req, res) : Populated by express. send port request and response
+// Express sends back the `blockchain.chain` by json format to requester
+app.get('/api/blocks', (req, res) => {
   res.json(blockchain.chain);
 });
 
-app.get("/api/blocks/length", (req, res) => {
+app.get('/api/blocks/length', (req, res) => {
   res.json(blockchain.chain.length);
 });
 
-app.get("/api/blocks/:id", (req, res) => {
+app.get('/api/blocks/:id', (req, res) => {
   const { id } = req.params;
   const { length } = blockchain.chain;
   // slice: no arguments so it's coppy original array
@@ -61,19 +64,18 @@ app.get("/api/blocks/:id", (req, res) => {
   res.json(blocksReversed.slice(startIndex, endIndex));
 });
 
-app.post("/api/mine", (req, res) => {
-  // Body data (in body field): Requester adds to the blockchain.
+app.post('/api/mine', (req, res) => {
+  // Body data (in body field): Requester adds to the blockchain
   const { data } = req.body;
 
   blockchain.addBlock({ data: data });
 
   pubsub.broadcastChain();
 
-  // automatically `get` the block
-  res.redirect("/api/blocks");
+  res.redirect('/api/blocks');
 });
 
-app.post("/api/transact", (req, res) => {
+app.post('/api/transact', (req, res) => {
   const { amount, recipient } = req.body;
   let transaction = transactionPool.existingTransaction({
     inputAddress: wallet.publicKey
@@ -92,27 +94,27 @@ app.post("/api/transact", (req, res) => {
   } catch (error) {
     // `return`: won't run below code after `retur` if returned due to error
     // better error msg when posting in postman
-    return res.status(400).json({ type: "error", message: error.message });
+    return res.status(400).json({ type: 'error', message: error.message });
   }
 
   transactionPool.setTransaction(transaction);
 
   pubsub.broadcastTransaction(transaction);
 
-  res.json({ type: "success", transaction });
+  res.json({ type: 'success', transaction });
 });
 
-app.get("/api/transaction-pool-map", (req, res) => {
+app.get('/api/transaction-pool-map', (req, res) => {
   res.json(transactionPool.transactionMap);
 });
 
-app.get("/api/mine-transactions", (req, res) => {
+app.get('/api/mine-transactions', (req, res) => {
   transactionMiner.mineTransactions();
 
-  res.redirect("/api/blocks");
+  res.redirect('/api/blocks');
 });
 
-app.get("/api/wallet-info", (req, res) => {
+app.get('/api/wallet-info', (req, res) => {
   const address = wallet.publicKey;
 
   res.json({
@@ -121,7 +123,7 @@ app.get("/api/wallet-info", (req, res) => {
   });
 });
 
-app.get("/api/known-addresses", (req, res) => {
+app.get('/api/known-addresses', (req, res) => {
   const addressMap = {};
 
   for (let block of blockchain.chain) {
@@ -136,8 +138,8 @@ app.get("/api/known-addresses", (req, res) => {
 });
 
 // *: Any endpoint
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist/index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
 
 const syncWithRootState = () => {
@@ -147,7 +149,7 @@ const syncWithRootState = () => {
       if (!error && response.statusCode === 200) {
         const rootChain = JSON.parse(body);
 
-        console.log("replace chain on a sync with", rootChain);
+        console.log('replace chain on a sync with', rootChain);
         blockchain.replaceChain(rootChain);
       }
     }
@@ -160,7 +162,7 @@ const syncWithRootState = () => {
         const rootTransactionPoolMap = JSON.parse(body);
 
         console.log(
-          "replace transaction pool map on a sync with",
+          'replace transaction pool map on a sync with',
           rootTransactionPoolMap
         );
         transactionPool.setMap(rootTransactionPoolMap);
@@ -223,7 +225,7 @@ if (isDevelopment) {
 let PEER_PORT;
 
 // "false" for first port
-if (process.env.GENERATE_PEER_PORT === "true") {
+if (process.env.GENERATE_PEER_PORT === 'true') {
   // Port==> 3000 + 1~1000.  math.random: decimal between 0~1.
   PEER_PORT = DEFAULT_PORT + Math.ceil(Math.random() * 1000);
 }

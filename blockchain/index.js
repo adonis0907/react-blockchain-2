@@ -1,8 +1,8 @@
-const Block = require("./block");
-const Transaction = require("../wallet/transaction");
-const Wallet = require("../wallet");
-const { cryptoHash } = require("../util/");
-const { REWARD_INPUT, MINING_REWARD } = require("../config");
+const Block = require('./block');
+const Transaction = require('../wallet/transaction');
+const Wallet = require('../wallet');
+const { cryptoHash } = require('../util/');
+const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
 class Blockchain {
   constructor() {
@@ -20,25 +20,23 @@ class Blockchain {
 
   replaceChain(chain, validTransactions, onSuccess) {
     if (chain.length <= this.chain.length) {
-      console.error("The incoming chain must be longer");
+      console.error('The incoming chain must be longer');
       return;
     }
 
-    // not replace if the coming chain is not valid
     if (!Blockchain.isValidChain(chain)) {
-      console.error("the incoming chain must be valid");
+      console.error('the incoming chain must be valid');
       return;
     }
 
     // this: Due to not static method
-    // Won't call validTransactionData method if validTransactions was not setted in the parameter
     if (validTransactions && !this.validTransactionData({ chain })) {
-      console.error("The incoming chain has invalid");
+      console.error('The incoming chain has invalid');
       return;
     }
 
     if (onSuccess) onSuccess();
-    console.log("replacing chain with", chain);
+    console.log('replacing chain with', chain);
     this.chain = chain;
   }
 
@@ -54,17 +52,17 @@ class Blockchain {
 
           // Cannot exist 2 of "*authorized-reward*" in a block.data
           if (rewardTransactionCount > 1) {
-            console.error("Miner rewrds exceed limit");
+            console.error('Miner rewrds exceed limit');
             return false;
           }
 
           if (Object.values(transaction.outputMap)[0] !== MINING_REWARD) {
-            console.error("Miner reward amount is invalid");
+            console.error('Miner reward amount is invalid');
             return false;
           }
         } else {
           if (!Transaction.validTransaction(transaction)) {
-            console.error("Invalid transaction");
+            console.error('Invalid transaction');
             return false;
           }
 
@@ -74,13 +72,13 @@ class Blockchain {
           });
 
           if (transaction.input.amount !== trueBalance) {
-            console.error("Invalid input amount");
+            console.error('Invalid input amount');
             return false;
           }
 
           if (transactionSet.has(transaction)) {
             console.error(
-              "An identical transaction appears more than once in the block"
+              'An identical transaction appears more than once in the block'
             );
             return false;
           } else {
@@ -99,10 +97,8 @@ class Blockchain {
       return false;
     }
 
-    // Validate the chain field items
     for (let i = 1; i < chain.length; i++) {
       // Destructuring assignment
-      // e.g.: { timestamp } = chain[1]; ==> access `chain[1].lastHash` just simply as `lastHash`
       const { timestamp, lastHash, hash, nonce, difficulty, data } = chain[i];
       const actualLastHash = chain[i - 1].hash;
       const lastDifficulty = chain[i - 1].difficulty;
@@ -123,8 +119,9 @@ class Blockchain {
         //console.log(hash + "  |  " + validatedHash);
         return false;
       }
+
       // prevent jump difficulty attack (+/-)
-      // abs: absolute value 絶対値（マイナスじゃない）difficultyをあげられて、ブロックの生成を遅くされる攻撃を防ぐ
+      // abs: absolute value 絶対値（マイナスじゃない）difficultyをあげられて、ブロックの生成を遅くされる攻撃を防ぐ。
       if (Math.abs(lastDifficulty - difficulty) > 1) return false;
     }
 
