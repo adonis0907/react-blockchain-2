@@ -61,22 +61,22 @@ Ref: Go to test in this website [SHA256 Hash Generato](https://passwordsgenerato
 
 Using `binary` format convert from hex due to building block more faster & higher difficulty than using with hex format.
 
-'''blockchain/block.js
+```blockchain/block.js
 const hexToBinary = require('hex-to-binary');
 let hash
 
 // Don't use hexToBinary() if choose hex format to find digest
 hexToBinary(hash).substring(0, difficulty) !== '0'.repeat(difficulty)
-'''
+```
 
 ## Install
 
 Clone repo, cd into folder and run:
 
-'''
+```
 $ npm install
 $ brew install redis
-'''
+```
 
 Need to [install redis](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298) to use Pub/Sub feature
 
@@ -88,10 +88,10 @@ Need to [install redis](https://medium.com/@petehouston/install-and-config-redis
 
 ### Check difficulty level match with MINE_RATE
 
-'''console
+```console
 $ cd script
 $ node average-work
-'''
+```
 
 Wait for average time shows around on `MINE_RATE` ms. (Default as 1000ms)
 Then can see the difficulty for `MINE_RATE` requirement.
@@ -104,6 +104,7 @@ Listen a request by HTTP requests on each port.
 May use [Postman](https://www.getpostman.com/) to handle Get and Post request.
 
 Run as publisher:
+
 `$ npm run dev`
 
 Run as subscriber:
