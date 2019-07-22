@@ -19,7 +19,7 @@ Making blockchain with JavaScript and React.
 
 - config.js: Each settings with hard coding
 - index.js: API settings
-- app: React folder
+- client: React folder
 - blockchain/index.js: Construct the each blocks to one `blockchain` array, Chain validation and replacement
 - blockchain/block.js: Functions about block and mining
 - util/crypto-hash.js: Take args as `...input` to array, then sort the `input...` array and join to avoid any order issue. Use SHA256 hash format and return by hex format

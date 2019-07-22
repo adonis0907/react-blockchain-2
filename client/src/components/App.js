@@ -1,7 +1,7 @@
 // { component }: class. No need {} for React due to default exports
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/blockchainLogo.png';
 
 class App extends Component {
   state = { walletInfo: {} };
@@ -19,22 +19,22 @@ class App extends Component {
     const { address, balance } = this.state.walletInfo;
 
     return (
-      <div className="App">
-        <img className="logo" src={logo} />
+      <div className='App'>
+        <img className='logo' src={logo} />
         <br />
-        <div>Welcome to the Blockchain...</div>
+        <div>Welcome to the Blockchain</div>
         <br />
         <div>
-          <Link to="/blocks">Blocks</Link>
+          <Link to='/blocks'>Blocks</Link>
         </div>
         <div>
-          <Link to="/conduct-transaction">Conduct a Transaction</Link>
+          <Link to='/conduct-transaction'>Conduct a Transaction</Link>
         </div>
         <div>
-          <Link to="/transaction-pool">Transaction-pool</Link>
+          <Link to='/transaction-pool'>Transaction-pool</Link>
         </div>
 
-        <div className="WalletInfo">
+        <div className='WalletInfo'>
           <div>Address: {address}</div>
           <div>Balance: {balance}</div>
         </div>
