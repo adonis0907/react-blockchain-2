@@ -76,7 +76,7 @@ hexToBinary(hash).substring(0, difficulty) !== '0'.repeat(difficulty)
 Clone repo, cd into folder and run:
 
 ```
-$ npm install
+$ yarn install
 ```
 
 ## Usage
@@ -87,21 +87,23 @@ Open http://localhost:3000/ in your browser after process following either 1 or 
 
 1. Reset the transaction data after restart localhost :
 
-   `$ npm run start`
+   `$ yarn run start`
 
 2. Keep the transaction data even after restart localhost :
 
-   `$ npm run dev`
+   `$ yarn run dev`
 
    2.1. Join the network as peered user:
 
-   `$ npm run dev-peer`
+   `$ yarn run dev-peer`
 
    Port number will shows in terminal as `Listening at localhost:XXXX`.
 
 ### Run test
 
-`$ npm run test`
+Currently not working
+
+`$ yarn run test`
 
 ### Check difficulty level match with MINE_RATE
 
@@ -120,11 +122,11 @@ See index.js for end point of each functions.
 
 Run as publisher:
 
-`$ npm run dev`
+`$ yarn run dev`
 
 Run as subscriber:
 
-`$ npm run dev-peer`
+`$ yarn run dev-peer`
 
 #### GET Request
 
@@ -144,7 +146,7 @@ Open free account click with `Sign Up Free`, click `CREATE NEW APP` then copy th
 
 ## Requirement
 
-- npm
+- yarn
 
 ## Tools
 
