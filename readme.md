@@ -101,8 +101,6 @@ Open http://localhost:3000/ in your browser after process following either 1 or 
 
 ### Run test
 
-Currently not working
-
 `$ yarn run test`
 
 ### Check difficulty level match with MINE_RATE
