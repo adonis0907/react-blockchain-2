@@ -5,7 +5,8 @@ const GENESIS_DATA = {
   // timestamp: new Data(),
   timestamp: 1,
   lastHash: '____',
-  hash: 'hash-one',
+  // hash: 'hash-one',
+  hash: 'GENESIS_BLOCK',
   difficulty: INITIAL_DIFFICULTY,
   nonce: 0,
   data: []

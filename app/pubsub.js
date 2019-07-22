@@ -1,3 +1,5 @@
+// Code if use redis instead of PubNub
+
 const redis = require('redis');
 
 const CHANNELS = {

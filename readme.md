@@ -19,12 +19,14 @@ Making blockchain with JavaScript and React.
 
 - config.js: Each settings with hard coding
 - index.js: API settings
+- app: React folder
 - blockchain/index.js: Construct the each blocks to one `blockchain` array, Chain validation and replacement
 - blockchain/block.js: Functions about block and mining
 - util/crypto-hash.js: Take args as `...input` to array, then sort the `input...` array and join to avoid any order issue. Use SHA256 hash format and return by hex format
 - util/index.js: Secp256k1 elliptic curves and verifySignature function
 - script/average-work.js: Check difficulty level match with MINE_RATE according to local computer's mine power
 - wallet/index.js: Create wallet with public/private key
+- wallet/transaction.js: Create transactions
 
 ## Intro: Data contain in block
 
@@ -75,18 +77,27 @@ Clone repo, cd into folder and run:
 
 ```
 $ npm install
-$ brew install redis
 ```
-
-Need to [install redis](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298) to use Pub/Sub feature
 
 ## Usage
 
 ### Run React
 
-`$ npm run dev`
+Open http://localhost:3000/ in your browser after process following either 1 or 2 command in terminal.
 
-then open http://localhost:3000/ in your browser
+1. Reset the transaction data after restart localhost :
+
+   `$ npm run start`
+
+2. Keep the transaction data even after restart localhost :
+
+   `$ npm run dev`
+
+   2.1. Join the network as peered user:
+
+   `$ npm run dev-peer`
+
+   Port number will shows in terminal as `Listening at localhost:XXXX`.
 
 ### Run test
 
@@ -104,10 +115,8 @@ Then can see the difficulty for `MINE_RATE` requirement.
 
 ### Blockchain API and network by Express
 
-Use Pub/Sub feature to Be able to read the blockchain and write the blockchain by json format.
-Listen a request by HTTP requests on each port.
-
-May use [Postman](https://www.getpostman.com/) to handle Get and Post request.
+Use express and [Postman](https://www.getpostman.com/) to be able to read the blockchain and write the blockchain by json format.
+See index.js for end point of each functions.
 
 Run as publisher:
 
@@ -124,6 +133,14 @@ Read the blockchain.
 #### POST Request
 
 Add the new block to the blockchain and send to network.
+Set as `raw` and `JSON` in Body field of Postman to post each request.
+
+### PubNup Settings
+
+Use [PubNup](https://www.pubnub.com/) to work with Pub / Sub feature.
+Open free account click with `Sign Up Free`, click `CREATE NEW APP` then copy the PUBLISH KEY, SUBSCRIBE KEY and SECRET KEY into `app/pubsub.pubnub.js`
+
+※ PubNup required for connecting the network environment to work.
 
 ## Requirement
 
@@ -133,11 +150,12 @@ Add the new block to the blockchain and send to network.
 
 - Jest
 - Elliptic with secp256k1
-- Moment.js
+- UUID
 - Express
+- Nodemon
 - BodyParser
 - Postman
-- PubSub by Redis
+- PubSub by PubNup
 
 ## Licence
 
