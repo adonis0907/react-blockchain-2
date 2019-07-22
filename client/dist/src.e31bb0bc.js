@@ -28576,7 +28576,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Written in this round about way for babel-transform-imports
 var _default = _MemoryRouter.default;
 exports.default = _default;
-},{"react-router/es/MemoryRouter":"../../node_modules/react-router/es/MemoryRouter.js"}],"../../node_modules/react-router/node_modules/isarray/index.js":[function(require,module,exports) {
+},{"react-router/es/MemoryRouter":"../../node_modules/react-router/es/MemoryRouter.js"}],"../../node_modules/isarray/index.js":[function(require,module,exports) {
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
@@ -29009,7 +29009,7 @@ function pathToRegexp (path, keys, options) {
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
 
-},{"isarray":"../../node_modules/react-router/node_modules/isarray/index.js"}],"../../node_modules/react-router/es/matchPath.js":[function(require,module,exports) {
+},{"isarray":"../../node_modules/isarray/index.js"}],"../../node_modules/react-router/es/matchPath.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31450,9 +31450,7 @@ function (_Component) {
   function App() {
     var _getPrototypeOf2;
 
-    var _this;
-
-    var _temp;
+    var _temp, _this;
 
     _classCallCheck(this, App);
 
@@ -49554,9 +49552,7 @@ function (_Component) {
   function Block() {
     var _getPrototypeOf2;
 
-    var _this;
-
-    var _temp;
+    var _temp, _this;
 
     _classCallCheck(this, Block);
 
@@ -49673,9 +49669,7 @@ function (_Component) {
   function Blocks() {
     var _getPrototypeOf2;
 
-    var _this;
-
-    var _temp;
+    var _temp, _this;
 
     _classCallCheck(this, Blocks);
 
@@ -49791,9 +49785,7 @@ function (_Component) {
   function ConductTransaction() {
     var _getPrototypeOf2;
 
-    var _this;
-
-    var _temp;
+    var _temp, _this;
 
     _classCallCheck(this, ConductTransaction);
 
@@ -49932,9 +49924,7 @@ function (_Component) {
   function TransactionPool() {
     var _getPrototypeOf2;
 
-    var _this;
-
-    var _temp;
+    var _temp, _this;
 
     _classCallCheck(this, TransactionPool);
 
@@ -50144,7 +50134,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50238" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51293" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
