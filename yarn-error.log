@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js add core-js@3
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js add jest
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
@@ -25,7 +25,7 @@ npm manifest:
     "scripts": {
       "test": "jest --watchAll",
       "start": "npm run build-client & node index.js",
-      "dev": "npm run dev-client & npm run start-redis && cross-env ENV='development' nodemon index.js",
+      "dev": "npm run dev-client & npm run && cross-env ENV='development' nodemon index.js",
       "dev-peer": "cross-env GENERATE_PEER_PORT='true' ENV='development' nodemon index.js",
       "start-redis": "redis-server --daemonize yes",
       "build-client": "npm run clean && parcel build client/src/index.html --out-dir client/dist",
@@ -57,7 +57,7 @@ npm manifest:
       "history": "^4.7.2",
       "parcel-bundler": "^1.10.3",
       "pubnub": "^4.21.6",
-      "react": "^16.6.0",
+      "react": "^16.8.0",
       "react-bootstrap": "^0.32.4",
       "react-dom": "^16.6.0",
       "react-router-dom": "^4.3.1",
