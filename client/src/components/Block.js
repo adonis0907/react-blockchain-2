@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Button } from "react-bootstrap";
-import Transaction from "./Transaction";
+import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
+import Transaction from './Transaction';
 class Block extends Component {
   state = { displayTransaction: false };
 
@@ -29,8 +29,8 @@ class Block extends Component {
           ))}
           <br />
           <Button
-            bsStyle="danger"
-            bsSize="small"
+            bsStyle='danger'
+            bsSize='small'
             onClick={this.toggleTransaction}
           >
             Show Less
@@ -43,8 +43,8 @@ class Block extends Component {
       <div>
         <div> Data: {dataDisplay} </div>
         <Button
-          bsStyle="danger"
-          bsSize="small"
+          bsStyle='danger'
+          bsSize='small'
           onClick={this.toggleTransaction}
         >
           Show More
@@ -54,14 +54,16 @@ class Block extends Component {
   }
 
   render() {
-    console.log("this.displayTransaction", this.displayTransaction);
-    const { timestamp, hash } = this.props.block;
+    console.log('this.displayTransaction', this.displayTransaction);
+    const { timestamp, hash, lastHash } = this.props.block;
 
     const hashDisplay = `${hash.substring(0, 15)}...`;
+    const lastHashDisplay = `${lastHash.substring(0, 15)}...`;
 
     return (
-      <div className="Block">
+      <div className='Block'>
         <div>Hash: {hashDisplay}</div>
+        <div>Last hash: {lastHashDisplay}</div>
         <div>Timestamp: {new Date(timestamp).toLocaleString()}</div>
         {this.displayTransaction}
       </div>

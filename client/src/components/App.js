@@ -1,4 +1,3 @@
-// { component }: class. No need {} for React due to default exports
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/blockchainLogo.png';
@@ -35,8 +34,11 @@ class App extends Component {
         </div>
 
         <div className='WalletInfo'>
-          <div>Address: {address}</div>
-          <div>Balance: {balance}</div>
+          <h4>Wallet address :</h4>
+          <h5>{address}</h5>
+
+          <h4>Wallet balance :</h4>
+          <h5>{balance}</h5>
         </div>
       </div>
     );

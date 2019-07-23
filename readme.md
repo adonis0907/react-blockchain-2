@@ -4,6 +4,10 @@
 
 Making blockchain with JavaScript and React.
 
+**_DEMO:_**
+
+<img src="./client/src/assets/190723Blockchain-JS.jpg" width="80%">
+
 ## Features
 
 - Proof of works with adjustable mining difficulty
@@ -85,11 +89,13 @@ $ yarn install
 
 Open http://localhost:3000/ in your browser after process following either 1 or 2 command in terminal.
 
-1. Reset the transaction data after restart localhost :
+Type `sudo` before yarn (or nmp) in case showing error.
+
+1. Start with wallet balance as $1000 and Genesis block :
 
    `$ yarn run start`
 
-2. Keep the transaction data even after restart localhost :
+2. Start with wallet balance as $2125 and few dummy transactions already created  :
 
    `$ yarn run dev`
 
@@ -97,7 +103,7 @@ Open http://localhost:3000/ in your browser after process following either 1 or 
 
    `$ yarn run dev-peer`
 
-   Port number will shows in terminal as `Listening at localhost:XXXX`.
+   Port number will shows in terminal as `Listening at localhost:XXXX` and only takes few seconds after proceed above code.
 
 ### Run test
 
@@ -150,12 +156,16 @@ Open free account click with `Sign Up Free`, click `CREATE NEW APP` then copy th
 
 - Jest
 - Elliptic with secp256k1
+- Hex-to-binary
 - UUID
 - Express
 - Nodemon
 - BodyParser
 - Postman
 - PubSub by PubNup
+- React
+- ReactRouter
+- Parcel-bundler
 
 ## Licence
 

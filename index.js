@@ -32,9 +32,10 @@ const transactionMiner = new TransactionMiner({
   pubsub
 });
 
-// setTimeout(() => pubsub.broadcastChain(), 1000);
-
 app.use(bodyParser.json());
+
+// express.static: Middleware function to use JS code which JS file located in client/dist'
+// __dirname: Current directory
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
 // `.get` to return blocks from back end.
@@ -53,7 +54,7 @@ app.get('/api/blocks/length', (req, res) => {
 app.get('/api/blocks/:id', (req, res) => {
   const { id } = req.params;
   const { length } = blockchain.chain;
-  // slice: no arguments so it's coppy original array
+  // slice: no arguments so it's copy original array
   const blocksReversed = blockchain.chain.slice().reverse();
 
   let startIndex = (id - 1) * 5;
@@ -169,6 +170,7 @@ const syncWithRootState = () => {
   );
 };
 
+// Dummy transaction history for development only
 if (isDevelopment) {
   const walletFoo = new Wallet();
   const walletBar = new Wallet();

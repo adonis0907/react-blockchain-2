@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Transaction = ({ transaction }) => {
   //const {input,outputMap} = props.transaction
@@ -6,13 +6,13 @@ const Transaction = ({ transaction }) => {
   const recipients = Object.keys(outputMap);
 
   return (
-    <div className="Transaction">
+    <div className='Transaction'>
       <div>
         From: {`${input.address.substring(0, 20)}...`} | Balance: {input.amount}
       </div>
       {recipients.map(recipient => (
         <div key={recipient}>
-          To: {`${recipient.substring(0.2)}...`} | Sent:
+          To: {`${recipient.substring(0, 20)}...`} | Sent:
           {outputMap[recipient]}
         </div>
       ))}
