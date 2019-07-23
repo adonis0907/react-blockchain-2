@@ -10,7 +10,7 @@ class Block extends Component {
 
   get displayTransaction() {
     const { data } = this.props.block;
-
+    // JSON.stringify: Use object as string
     const stringifiedData = JSON.stringify(data);
 
     const dataDisplay =
