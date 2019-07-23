@@ -49590,7 +49590,8 @@ function (_Component) {
   }, {
     key: "displayTransaction",
     get: function get() {
-      var data = this.props.block.data;
+      var data = this.props.block.data; // JSON.stringify: Use object as string
+
       var stringifiedData = JSON.stringify(data);
       var dataDisplay = stringifiedData.length > 35 ? "".concat(stringifiedData.substring(0, 35), "...") : stringifiedData;
 
@@ -49947,6 +49948,7 @@ function (_Component) {
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(TransactionPool)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       transactionPoolMap: {}
     }, _this.fetchTransactionPoolMap = function () {
+      // document.location.origin: localhost:3000
       fetch("".concat(document.location.origin, "/api/transaction-pool-map")).then(function (response) {
         return response.json();
       }).then(function (json) {
@@ -49957,11 +49959,11 @@ function (_Component) {
     }, _this.fetchMineTransactions = function () {
       fetch("".concat(document.location.origin, "/api/mine-transactions")).then(function (response) {
         if (response.status === 200) {
-          alert("success");
+          alert('success');
 
-          _history.default.push("/blocks");
+          _history.default.push('/blocks');
         } else {
-          alert("The mine-transactions block request did not complete.");
+          alert('The mine-transactions block request did not complete.');
         }
       });
     }, _temp));
@@ -50146,7 +50148,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56158" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61235" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
