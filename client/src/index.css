@@ -19,6 +19,10 @@ body {
   align-items: center;
 }
 
+.App p a {
+  font-size: 10px !important;
+}
+
 .WalletInfo {
   width: 500px;
 }

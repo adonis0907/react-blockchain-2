@@ -31500,7 +31500,11 @@ function (_Component) {
         to: "/transaction-pool"
       }, "Transaction-pool")), _react.default.createElement("div", {
         className: "WalletInfo"
-      }, _react.default.createElement("h4", null, "Wallet address :"), _react.default.createElement("h5", null, address), _react.default.createElement("h4", null, "Wallet balance :"), _react.default.createElement("h5", null, balance)));
+      }, _react.default.createElement("h4", null, "Wallet address :"), _react.default.createElement("h5", null, address), _react.default.createElement("h4", null, "Wallet balance :"), _react.default.createElement("h5", null, balance)), _react.default.createElement("br", null), _react.default.createElement("p", null, "Hey, please feel free to try out."), _react.default.createElement("p", null, "This is a demo website for build a blockchain with send money transaction."), _react.default.createElement("p", null, "You can send dummy money and mining block to be able to see the added block in this blockchain.", ' '), _react.default.createElement("p", null, "Also, you can role as another peer to conduct a transaction or mining to receive dummy rewards.", ' '), _react.default.createElement("a", {
+        href: "https://my-crypto-blockchain-peer.herokuapp.com/",
+        rel: "noopener noreferrer",
+        target: "_blank"
+      }, "P2P website"), _react.default.createElement("p", null, "( Please open localhost://xxxx if opening this page as development mode in the local environment )"), _react.default.createElement("p", null, "This blockchain will reset when restarting the application. "), _react.default.createElement("br", null));
     }
   }]);
 
@@ -50148,7 +50152,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61235" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63133" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

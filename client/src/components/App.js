@@ -40,6 +40,33 @@ class App extends Component {
           <h4>Wallet balance :</h4>
           <h5>{balance}</h5>
         </div>
+        <br />
+        <p>Hey, please feel free to try out.</p>
+        <p>
+          This is a demo website for build a blockchain with send money
+          transaction.
+        </p>
+        <p>
+          You can send dummy money and mining block to be able to see the added
+          block in this blockchain.{' '}
+        </p>
+        <p>
+          Also, you can role as another peer to conduct a transaction or mining
+          to receive dummy rewards.{' '}
+        </p>
+        <a
+          href='https://my-crypto-blockchain-peer.herokuapp.com/'
+          rel='noopener noreferrer'
+          target='_blank'
+        >
+          P2P website
+        </a>
+        <p>
+          ( Please open localhost://xxxx if opening this page as development
+          mode in the local environment )
+        </p>
+        <p>This blockchain will reset when restarting the application. </p>
+        <br />
       </div>
     );
   }
